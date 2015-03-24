@@ -1,4 +1,4 @@
-(defproject bostonou/cljs-pprint "0.0.3-SNAPSHOT"
+(defproject bostonou/cljs-pprint "0.0.4-SNAPSHOT"
   :description "A port of clojure.pprint to clojurescript."
   :url "https://github.com/bostonou/cljs-pprint"
   :license {:name "Eclipse Public License"
