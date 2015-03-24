@@ -1,5 +1,5 @@
-(defproject cljs-pprint "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
+(defproject bostonou/cljs-pprint "0.0.1"
+  :description "A port of clojure.pprint to clojurescript."
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -7,8 +7,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2850"]
                  [figwheel "0.2.5"]
-                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
-                 [com.cemerick/clojurescript.test "0.3.3"]]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
 
   :plugins [[lein-cljsbuild "1.0.4"]
             [lein-figwheel "0.2.5"]
