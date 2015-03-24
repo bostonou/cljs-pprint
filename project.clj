@@ -6,33 +6,35 @@
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2850"]
-                 [figwheel "0.2.5-SNAPSHOT"]
-                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
+                 [figwheel "0.2.5"]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]
+                 [com.cemerick/clojurescript.test "0.3.3"]]
 
   :plugins [[lein-cljsbuild "1.0.4"]
-            [lein-figwheel "0.2.5-SNAPSHOT"]]
+            [lein-figwheel "0.2.5"]
+            [com.cemerick/clojurescript.test "0.3.3"]]
 
   :source-paths ["src"]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled"]
   
-  :cljsbuild {
-    :builds [{:id "dev"
-              :source-paths ["src" "dev_src"]
-              :compiler {:output-to "resources/public/js/compiled/cljs_pprint.js"
-                         :output-dir "resources/public/js/compiled/out"
-                         :optimizations :none
-                         :main cljs-pprint.dev
-                         :asset-path "js/compiled/out"
-                         :source-map true
-                         :source-map-timestamp true
-                         :cache-analysis true }}
-             {:id "min"
-              :source-paths ["src"]
-              :compiler {:output-to "resources/public/js/compiled/cljs_pprint.js"
-                         :main cljs-pprint.core                         
-                         :optimizations :advanced
-                         :pretty-print false}}]}
+  :cljsbuild {:builds [{:id "dev"
+                        :source-paths ["src/cljs" "dev_src/cljs_pprint"]
+                        :compiler {:output-to "resources/public/js/compiled/cljs_pprint.js"
+                                   :output-dir "resources/public/js/compiled/out"
+                                   :optimizations :none
+                                   :main cljs-pprint.dev
+                                   :asset-path "js/compiled/out"
+                                   :source-map true
+                                   :source-map-timestamp true
+                                   :cache-analysis true }}
+                       {:id "test"
+                        :source-paths ["src" "test"]
+                        :notify-command ["phantomjs" :cljs.test/runner "target/test/pprint.js"]
+                        :compiler {:output-to  "target/test/pprint.js"
+                                   :output-dir "target/test"
+                                   :optimizations :whitespace}}]
+              :test-commands {"phantom" ["phantomjs" :cljs.test/runner "target/test/pprint.js"]}}
 
   :figwheel {
              :http-server-root "public" ;; default and assumes "resources" 
