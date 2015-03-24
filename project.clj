@@ -1,6 +1,6 @@
-(defproject bostonou/cljs-pprint "0.0.1-SNAPSHOT"
+(defproject bostonou/cljs-pprint "0.0.2-SNAPSHOT"
   :description "A port of clojure.pprint to clojurescript."
-  :url "http://example.com/FIXME"
+  :url "https://github.com/bostonou/cljs-pprint"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
