@@ -1,6 +1,6 @@
 (ns cljs-pprint.dev
     (:require
-     [cljs.pprint]
+     [cljs.contrib.pprint]
      [figwheel.client :as fw]))
 
 (fw/start {

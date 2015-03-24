@@ -1,10 +1,10 @@
-(ns cljs.pprint-test
+(ns cljs.contrib.pprint-test
   (:require
     [cemerick.cljs.test :as t]
-    [cljs.pprint :refer [pprint]])
+    [cljs.contrib.pprint :refer [pprint]])
   (:require-macros
     [cemerick.cljs.test :refer [deftest is]]
-    [clj.pprint-test :refer [simple-tests]]))
+    [clj.contrib.pprint-test :refer [simple-tests]]))
 
 (simple-tests print-length-tests
   (binding [*print-length* 1] (with-out-str (pprint '(a b c d e f))))
@@ -54,7 +54,7 @@
   )
 
 (simple-tests print-margin-tests
-  (binding [cljs.pprint/*print-right-margin* 20]
+  (binding [cljs.contrib.pprint/*print-right-margin* 20]
     (with-out-str (pprint (sorted-map 1 (sorted-map 12345 123456), 3 (sorted-map 4 5, 6 7)))))
   "{1 {12345 123456},\n 3 {4 5, 6 7}}\n"
 

@@ -1,4 +1,4 @@
-(ns clj.pprint
+(ns clj.contrib.pprint
   (:refer-clojure :exclude [deftype])
   (:require [clojure.walk :as walk]))
 
@@ -48,17 +48,17 @@
   and :suffix."
   [& args]
   (let [[options body] (parse-lb-options #{:prefix :per-line-prefix :suffix} args)]
-    `(do (if (cljs.pprint/level-exceeded)
-           (~'-write cljs.pprint/*out* "#")
+    `(do (if (cljs.contrib.pprint/level-exceeded)
+           (~'-write cljs.contrib.pprint/*out* "#")
            (do
-             (binding [cljs.pprint/*current-level* (inc cljs.pprint/*current-level*)
-                       cljs.pprint/*current-length* 0]
-               (cljs.pprint/start-block cljs.pprint/*out*
+             (binding [cljs.contrib.pprint/*current-level* (inc cljs.contrib.pprint/*current-level*)
+                       cljs.contrib.pprint/*current-length* 0]
+               (cljs.contrib.pprint/start-block cljs.contrib.pprint/*out*
                                         ~(:prefix options)
                                         ~(:per-line-prefix options)
                                         ~(:suffix options))
                ~@body
-               (cljs.pprint/end-block cljs.pprint/*out*))))
+               (cljs.contrib.pprint/end-block cljs.contrib.pprint/*out*))))
          nil)))
 
 (defn- pll-mod-body [var-sym body]
@@ -81,18 +81,18 @@
     `(loop ~(apply vector count-var 0 bindings)
        (if (or (not cljs.core/*print-length*) (< ~count-var cljs.core/*print-length*))
          (do ~@mod-body)
-         (~'-write cljs.pprint/*out* "...")))))
+         (~'-write cljs.contrib.pprint/*out* "...")))))
 
 (defmacro with-pretty-writer [base-writer & body]
   `(let [base-writer# ~base-writer
-         new-writer# (not (cljs.pprint/pretty-writer? base-writer#))]
-     (binding [cljs.pprint/*out* (if new-writer#
-                                   (cljs.pprint/make-pretty-writer base-writer#
-                                                                   cljs.pprint/*print-right-margin*
-                                                                   cljs.pprint/*print-miser-width*)
+         new-writer# (not (cljs.contrib.pprint/pretty-writer? base-writer#))]
+     (binding [cljs.contrib.pprint/*out* (if new-writer#
+                                   (cljs.contrib.pprint/make-pretty-writer base-writer#
+                                                                   cljs.contrib.pprint/*print-right-margin*
+                                                                   cljs.contrib.pprint/*print-miser-width*)
                                    base-writer#)]
        ~@body
-       (~'-ppflush cljs.pprint/*out*))))
+       (~'-ppflush cljs.contrib.pprint/*out*))))
 
 (defn- process-directive-table-element [[char params flags bracket-info & generator-fn]]
   [char,
@@ -117,9 +117,9 @@ format-in can be either a control string or a previously compiled format."
   {:added "1.2"}
   [format-in]
   `(let [format-in# ~format-in
-         my-c-c# #'cljs.pprint/cached-compile
-         my-e-f# #'cljs.pprint/execute-format
-         my-i-n# #'cljs.pprint/init-navigator
+         my-c-c# #'cljs.contrib.pprint/cached-compile
+         my-e-f# #'cljs.contrib.pprint/execute-format
+         my-i-n# #'cljs.contrib.pprint/init-navigator
          cf# (if (string? format-in#) (my-c-c# format-in#) format-in#)]
      (fn [stream# & args#]
        (let [navigator# (my-i-n# args#)]
@@ -135,8 +135,8 @@ format-in can be either a control string or a previously compiled format."
   {:added "1.2"}
   [format-in]
   `(let [format-in# ~format-in
-         cf# (if (string? format-in#) (#'cljs.pprint/cached-compile format-in#) format-in#)]
+         cf# (if (string? format-in#) (#'cljs.contrib.pprint/cached-compile format-in#) format-in#)]
      (fn [& args#]
-       (let [navigator# (#'cljs.pprint/init-navigator args#)]
-         (#'cljs.pprint/execute-format cf# navigator#)))))
+       (let [navigator# (#'cljs.contrib.pprint/init-navigator args#)]
+         (#'cljs.contrib.pprint/execute-format cf# navigator#)))))
 

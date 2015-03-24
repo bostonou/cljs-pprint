@@ -1,10 +1,10 @@
-(ns cljs.pprint
+(ns cljs.contrib.pprint
   (:refer-clojure :exclude [deftype])
   (:require
     [clojure.string :as string])
   (:require-macros
-    [clj.pprint :refer [deftype getf setf pprint-logical-block print-length-loop
-                        with-pretty-writer defdirectives formatter formatter-out]])
+    [clj.contrib.pprint :refer [deftype getf setf pprint-logical-block print-length-loop
+                                with-pretty-writer defdirectives formatter formatter-out]])
   (:import goog.string.StringBuffer))
 
 (def ^:dynamic *out* nil)
@@ -668,21 +668,21 @@ radix specifier is in the form #XXr where XX is the decimal value of *print-base
 
 (def ^{:private true} write-option-table
   {;:array            *print-array*
-   :base             #'cljs.pprint/*print-base*,
+   :base             #'cljs.contrib.pprint/*print-base*,
    ;;:case             *print-case*,
-   :circle           #'cljs.pprint/*print-circle*,
+   :circle           #'cljs.contrib.pprint/*print-circle*,
    ;;:escape           *print-escape*,
    ;;:gensym           *print-gensym*,
    :length           #'cljs.core/*print-length*,
    :level            #'cljs.core/*print-level*,
-   :lines            #'cljs.pprint/*print-lines*,
-   :miser-width      #'cljs.pprint/*print-miser-width*,
-   :dispatch         #'cljs.pprint/*print-pprint-dispatch*,
-   :pretty           #'cljs.pprint/*print-pretty*,
-   :radix            #'cljs.pprint/*print-radix*,
+   :lines            #'cljs.contrib.pprint/*print-lines*,
+   :miser-width      #'cljs.contrib.pprint/*print-miser-width*,
+   :dispatch         #'cljs.contrib.pprint/*print-pprint-dispatch*,
+   :pretty           #'cljs.contrib.pprint/*print-pretty*,
+   :radix            #'cljs.contrib.pprint/*print-radix*,
    :readably         #'cljs.core/*print-readably*,
-   :right-margin     #'cljs.pprint/*print-right-margin*,
-   :suppress-namespaces #'cljs.pprint/*print-suppress-namespaces*})
+   :right-margin     #'cljs.contrib.pprint/*print-right-margin*,
+   :suppress-namespaces #'cljs.contrib.pprint/*print-suppress-namespaces*})
 
 (defn- table-ize [t m]
   (apply hash-map (mapcat
