@@ -1,3 +1,5 @@
+# Development has moved to [shaunlebron/cljs-pprint](https://github.com/shaunlebron/cljs-pprint/).
+
 # cljs-pprint
 port of clojure.pprint to clojurescript
 
